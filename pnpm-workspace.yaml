@@ -1,0 +1,4 @@
+packages:
+  - server/read/*
+  - server/write/*
+  - ui/*
