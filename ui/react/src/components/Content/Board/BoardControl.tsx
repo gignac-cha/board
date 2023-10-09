@@ -1,9 +1,8 @@
 import { css } from '@emotion/css';
 import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { commonStyles } from '../../../styles/common';
+import { IconButton } from '../../common/IconButton';
 
 interface BoardControlProperties {
   board: Board;
@@ -33,16 +32,17 @@ export const BoardControl: FunctionComponent<BoardControlProperties> = ({
   return (
     <p className={styles.headerBottomContainer}>
       {window.location.pathname.endsWith('/new') ? (
-        <button
+        <IconButton
           onClick={onClickNewArticleCancel}
-          className={commonStyles.button}
-        >
-          <FontAwesomeIcon icon={faX} /> Cancel
-        </button>
+          icon={faX}
+          text="Cancel"
+        />
       ) : (
-        <button onClick={onClickNewArticle} className={commonStyles.button}>
-          <FontAwesomeIcon icon={faPlus} /> New Article
-        </button>
+        <IconButton
+          onClick={onClickNewArticle}
+          icon={faPlus}
+          text="New Article"
+        />
       )}
     </p>
   );

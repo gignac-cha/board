@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { DOMAttributes, FunctionComponent, useMemo } from 'react';
+import { FunctionComponent, HTMLAttributes, useMemo } from 'react';
 import { useCommentsQuery } from '../../../../queries/useCommentQuery';
 import { useUserQuery } from '../../../../queries/useUserQuery';
 import { commonStyles } from '../../../../styles/common';
@@ -43,7 +43,7 @@ const styles = {
 };
 
 export const ArticleSimple: FunctionComponent<
-  ArticleSimpleProperties & DOMAttributes<HTMLElement>
+  ArticleSimpleProperties & HTMLAttributes<HTMLElement>
 > = ({ board, article, onClick }) => {
   const { data: createdBy } = useUserQuery({
     user: { uuid: article.createdByUUID },

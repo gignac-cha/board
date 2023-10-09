@@ -1,13 +1,12 @@
 import { css } from '@emotion/css';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent, useCallback } from 'react';
 import {
   useLocalStorageMutation,
   useLocalStorageQuery,
 } from '../../../queries/useLocalStorageQuery';
-import { commonStyles } from '../../../styles/common';
 import { requestTokenKey } from '../../../utilities/constants';
+import { IconButton } from '../../common/IconButton';
 
 interface SignedInProperties {
   me: User;
@@ -35,9 +34,11 @@ export const SignedIn: FunctionComponent<SignedInProperties> = ({ me }) => {
   return (
     <section className={styles.container}>
       {me.name}
-      <button className={commonStyles.button} onClick={onClickSignOut}>
-        <FontAwesomeIcon icon={faRightFromBracket} /> Sign Out
-      </button>
+      <IconButton
+        onClick={onClickSignOut}
+        text="Sign Out"
+        icon={faRightFromBracket}
+      />
     </section>
   );
 };

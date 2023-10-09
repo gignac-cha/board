@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import classNames from 'classnames';
-import { DOMAttributes, FunctionComponent } from 'react';
+import { FunctionComponent, HtmlHTMLAttributes } from 'react';
 import { commonStyles } from '../../styles/common';
 
 interface BoardSimpleProperties {
@@ -29,7 +29,7 @@ const styles = {
 };
 
 export const BoardSimple: FunctionComponent<
-  BoardSimpleProperties & DOMAttributes<HTMLElement>
+  BoardSimpleProperties & HtmlHTMLAttributes<HTMLElement>
 > = ({ board, isSelected, onClick }) => {
   return (
     <article className={styles.container} title={board.description}>

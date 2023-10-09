@@ -1,6 +1,5 @@
 import { css } from '@emotion/css';
 import { faSave, faX } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import {
   ChangeEvent,
@@ -16,6 +15,7 @@ import {
   useCommentsQuery,
 } from '../../../../../queries/useCommentQuery';
 import { commonStyles } from '../../../../../styles/common';
+import { IconButton } from '../../../../common/IconButton';
 
 interface EditCommentProperties {
   board: Board;
@@ -92,29 +92,21 @@ export const EditComment: FunctionComponent<EditCommentProperties> = ({
         defaultValue={comment.content}
         onChange={onChange}
       />
-      <button
-        className={classNames([
-          commonStyles.button,
-          commonStyles.smallButton,
-          !isDisabled && styles.greenButton,
-        ])}
+      <IconButton
+        className={classNames([!isDisabled && styles.greenButton])}
         title="Save"
         onClick={onClick}
         disabled={isDisabled}
-      >
-        <FontAwesomeIcon
-          icon={faSave}
-          size="xs"
-          color={isDisabled ? undefined : 'white'}
-        />
-      </button>
-      <button
-        className={classNames([commonStyles.button, commonStyles.smallButton])}
+        icon={faSave}
+        size="xs"
+        color={isDisabled ? undefined : 'white'}
+      />
+      <IconButton
         title="Cancel"
         onClick={() => onFinished()}
-      >
-        <FontAwesomeIcon icon={faX} size="xs" />
-      </button>
+        icon={faX}
+        size="xs"
+      />
     </div>
   );
 };

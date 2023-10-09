@@ -1,15 +1,17 @@
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { DOMAttributes, FunctionComponent, useMemo } from 'react';
+import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import { ButtonHTMLAttributes, FunctionComponent, useMemo } from 'react';
 import { OAuth2ProviderType } from '../../../enums/OAuth';
-import { commonStyles } from '../../../styles/common';
+import { IconButton } from '../../common/IconButton';
 
 interface SignInButtonProperties {
   providerType: OAuth2ProviderType;
 }
 
 export const SignInButton: FunctionComponent<
-  SignInButtonProperties & DOMAttributes<HTMLButtonElement>
+  SignInButtonProperties &
+    ButtonHTMLAttributes<HTMLButtonElement> &
+    FontAwesomeIconProps
 > = ({ providerType, onClick }) => {
   const icon = useMemo(() => {
     switch (providerType) {
@@ -18,9 +20,5 @@ export const SignInButton: FunctionComponent<
     }
   }, [providerType]);
 
-  return (
-    <button className={commonStyles.button} onClick={onClick}>
-      <FontAwesomeIcon icon={icon} />
-    </button>
-  );
+  return <IconButton onClick={onClick} icon={icon} />;
 };

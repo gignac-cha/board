@@ -3,6 +3,10 @@ import { CSSProperties } from 'react';
 
 export const commonStyles = {
   button: css({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: '.5rem',
     margin: 0,
     padding: '.5rem 1rem',
     backgroundColor: '#eee',

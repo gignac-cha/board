@@ -4,7 +4,6 @@ import {
   faSave,
   faX,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Editor } from '@monaco-editor/react';
 import classNames from 'classnames';
 import { editor } from 'monaco-editor';
@@ -28,6 +27,7 @@ import {
   getArticleEditorCachedContentKey,
   getArticleEditorCachedTitleKey,
 } from '../../../../utilities/constants';
+import { IconButton } from '../../../common/IconButton';
 import { PreviewModal } from './PreviewModal';
 
 interface ArticleEditorProperties {
@@ -154,19 +154,14 @@ export const ArticleEditor: FunctionComponent<ArticleEditorProperties> = ({
     <section className={styles.container}>
       <header className={styles.headerContainer}>
         <h2 className={styles.title}>{article ? 'Edit' : 'New'} Article</h2>
-        <button onClick={onClickArticlePreview} className={commonStyles.button}>
-          <FontAwesomeIcon icon={faMagnifyingGlass} /> Preview
-        </button>
-        <button onClick={onClickArticleSave} className={commonStyles.button}>
-          <FontAwesomeIcon icon={faSave} /> Save
-        </button>
+        <IconButton
+          onClick={onClickArticlePreview}
+          text="Preview"
+          icon={faMagnifyingGlass}
+        />
+        <IconButton onClick={onClickArticleSave} text="Save" icon={faSave} />
         {article && (
-          <button
-            onClick={onClickArticleCancel}
-            className={commonStyles.button}
-          >
-            <FontAwesomeIcon icon={faX} /> Cancel
-          </button>
+          <IconButton onClick={onClickArticleCancel} text="Cancel" icon={faX} />
         )}
       </header>
       <input

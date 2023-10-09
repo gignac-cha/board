@@ -1,13 +1,12 @@
 import { css } from '@emotion/css';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { FunctionComponent, useState } from 'react';
 import { useSignContext } from '../../../../../contexts/SignContext';
 import { useUserQuery } from '../../../../../queries/useUserQuery';
-import { commonStyles } from '../../../../../styles/common';
 import { formatDateTime } from '../../../../../utilities/format';
+import { IconButton } from '../../../../common/IconButton';
 import { DeleteComment } from './DeleteComment';
 import { EditComment } from './EditComment';
 
@@ -81,16 +80,13 @@ export const Comment: FunctionComponent<CommentProperties> = ({
         {createdBy?.uuid === me?.uuid && (
           <span className={styles.rightButtonContainer}>
             {!isEditing && (
-              <button
-                className={classNames([
-                  commonStyles.button,
-                  commonStyles.smallButton,
-                ])}
+              <IconButton
                 title="Edit"
+                small
                 onClick={() => setEditing(true)}
-              >
-                <FontAwesomeIcon icon={faEdit} size="xs" />
-              </button>
+                icon={faEdit}
+                size="xs"
+              />
             )}
             {isDeleting ? (
               <DeleteComment
@@ -100,16 +96,13 @@ export const Comment: FunctionComponent<CommentProperties> = ({
                 onFinished={() => setDeleting(false)}
               />
             ) : (
-              <button
-                className={classNames([
-                  commonStyles.button,
-                  commonStyles.smallButton,
-                ])}
+              <IconButton
                 title="Delete"
+                small
                 onClick={() => setDeleting(true)}
-              >
-                <FontAwesomeIcon icon={faTrash} size="xs" />
-              </button>
+                icon={faTrash}
+                size="xs"
+              />
             )}
           </span>
         )}

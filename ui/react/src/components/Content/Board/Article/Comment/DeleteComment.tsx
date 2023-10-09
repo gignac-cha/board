@@ -1,13 +1,11 @@
 import { css } from '@emotion/css';
 import { faCancel, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
 import { FunctionComponent, useCallback } from 'react';
 import {
   useCommentDeleteMutation,
   useCommentsQuery,
 } from '../../../../../queries/useCommentQuery';
-import { commonStyles } from '../../../../../styles/common';
+import { IconButton } from '../../../../common/IconButton';
 
 interface DeleteCommentProperties {
   board: Board;
@@ -49,24 +47,22 @@ export const DeleteComment: FunctionComponent<DeleteCommentProperties> = ({
 
   return (
     <div className={styles.container}>
-      <button
-        className={classNames([
-          commonStyles.button,
-          commonStyles.smallButton,
-          styles.redButton,
-        ])}
+      <IconButton
+        className={styles.redButton}
         title="Confirm"
+        small
         onClick={onClick}
-      >
-        <FontAwesomeIcon icon={faTrash} size="xs" color="white" />
-      </button>
-      <button
-        className={classNames([commonStyles.button, commonStyles.smallButton])}
+        icon={faTrash}
+        size="xs"
+        color="white"
+      />
+      <IconButton
         title="Cancel"
+        small
         onClick={() => onFinished()}
-      >
-        <FontAwesomeIcon icon={faCancel} size="xs" />
-      </button>
+        icon={faCancel}
+        size="xs"
+      />
     </div>
   );
 };

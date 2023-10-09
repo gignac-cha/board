@@ -1,12 +1,12 @@
 import { css } from '@emotion/css';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { FunctionComponent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSignContext } from '../../../../contexts/SignContext';
 import { useCommentsQuery } from '../../../../queries/useCommentQuery';
 import { commonStyles } from '../../../../styles/common';
+import { IconButton } from '../../../common/IconButton';
 import { Separator } from '../../../common/Separator';
 import { Comments } from './Comment/Comments';
 import { NewComment } from './Comment/NewComment';
@@ -63,9 +63,7 @@ export const Article: FunctionComponent<ArticleProperties> = ({
           {article.title}
         </h2>
         {article.createdByUUID === me?.uuid && (
-          <button className={commonStyles.button} onClick={onClickEditArticle}>
-            <FontAwesomeIcon icon={faEdit} /> Edit
-          </button>
+          <IconButton onClick={onClickEditArticle} icon={faEdit} text="Edit" />
         )}
       </header>
       <p className={styles.middleTopContainer}>
