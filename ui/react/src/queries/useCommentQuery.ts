@@ -18,14 +18,12 @@ export const useCommentsQuery = ({
   board,
   article,
 }: UseCommentsQueryProperties) =>
-  useQuery<Comment[] | undefined>(
-    ['comments', board.uuid, article.uuid],
-    () => getComments({ board, article }),
-    {
-      enabled: !!board.uuid && !!article.uuid,
-      suspense: true,
-    },
-  );
+  useQuery<Comment[] | undefined>({
+    queryKey: ['comments', board.uuid, article.uuid],
+    queryFn: () => getComments({ board, article }),
+    enabled: !!board.uuid && !!article.uuid,
+    suspense: true,
+  });
 
 // interface UseCommentQueryProperties {
 //   board: BoardLike;
@@ -38,14 +36,12 @@ export const useCommentsQuery = ({
 //   article,
 //   comment,
 // }: UseCommentQueryProperties) =>
-//   useQuery<Comment | undefined>(
-//     ['comment', board.uuid, article.uuid],
-//     () => getComment({ board, article, comment }),
-//     {
-//       enabled: !!board.uuid && !!article.uuid && !!comment.uuid,
-//       suspense: true,
-//     },
-//   );
+//   useQuery<Comment | undefined>({
+//     queryKey: ['comment', board.uuid, article.uuid],
+//     queryFn: () => getComment({ board, article, comment }),
+//     enabled: !!board.uuid && !!article.uuid && !!comment.uuid,
+//     suspense: true,
+//   });
 
 interface UseCommentAddMutationProperties {
   board: BoardLike;
@@ -62,11 +58,13 @@ export const useCommentAddMutation = ({
 }: UseCommentAddMutationProperties) => {
   const requestToken = localStorage.getItem(requestTokenKey);
   return useMutation<Comment | undefined, Error, UseCommentAddMutateProperties>(
-    ['comment', 'add', board.uuid, article.uuid],
-    async ({ content }: UseCommentAddMutateProperties) => {
-      if (requestToken) {
-        return addComment({ board, article, content, requestToken });
-      }
+    {
+      mutationKey: ['comment', 'add', board.uuid, article.uuid],
+      mutationFn: async ({ content }: UseCommentAddMutateProperties) => {
+        if (requestToken) {
+          return addComment({ board, article, content, requestToken });
+        }
+      },
     },
   );
 };
@@ -91,14 +89,14 @@ export const useCommentEditMutation = ({
     Comment | undefined,
     Error,
     UseCommentEditMutateProperties
-  >(
-    ['comment', 'edit', board.uuid, article.uuid, comment.uuid],
-    async ({ content }: UseCommentEditMutateProperties) => {
+  >({
+    mutationKey: ['comment', 'edit', board.uuid, article.uuid, comment.uuid],
+    mutationFn: async ({ content }: UseCommentEditMutateProperties) => {
       if (requestToken) {
         return editComment({ board, article, comment, content, requestToken });
       }
     },
-  );
+  });
 };
 
 interface UseCommentDeleteMutationProperties {
@@ -113,12 +111,12 @@ export const useCommentDeleteMutation = ({
   comment,
 }: UseCommentDeleteMutationProperties) => {
   const requestToken = localStorage.getItem(requestTokenKey);
-  return useMutation<CommentLike | undefined, Error>(
-    ['comment', 'delete', board.uuid, article.uuid, comment.uuid],
-    async () => {
+  return useMutation<CommentLike | undefined, Error>({
+    mutationKey: ['comment', 'delete', board.uuid, article.uuid, comment.uuid],
+    mutationFn: async () => {
       if (requestToken) {
         return deleteComment({ board, article, comment, requestToken });
       }
     },
-  );
+  });
 };

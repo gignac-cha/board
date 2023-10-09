@@ -6,20 +6,20 @@ interface UseUserMeQueryProperties {
 }
 
 export const useUserMeQuery = ({ requestToken }: UseUserMeQueryProperties) =>
-  useQuery<User | undefined>(
-    ['user', 'me'],
-    () => getUserMe({ requestToken }),
-    {
-      enabled: !!requestToken,
-      suspense: true,
-    },
-  );
+  useQuery<User | undefined>({
+    queryKey: ['user', 'me'],
+    queryFn: () => getUserMe({ requestToken }),
+    enabled: !!requestToken,
+    suspense: true,
+  });
 
 interface UseUserQueryProperties {
   user: UserLike;
 }
 
 export const useUserQuery = ({ user }: UseUserQueryProperties) =>
-  useQuery<User | undefined>(['user', user.uuid], () => getUser({ user }), {
+  useQuery<User | undefined>({
+    queryKey: ['user', user.uuid],
+    queryFn: () => getUser({ user }),
     enabled: !!user.uuid,
   });

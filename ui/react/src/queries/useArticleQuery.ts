@@ -14,7 +14,9 @@ interface UseArticlesQueryProperties {
 }
 
 export const useArticlesQuery = ({ board }: UseArticlesQueryProperties) =>
-  useQuery<Article[]>(['articles', board.uuid], () => getArticles({ board }), {
+  useQuery<Article[]>({
+    queryKey: ['articles', board.uuid],
+    queryFn: () => getArticles({ board }),
     enabled: !!board.uuid,
     suspense: true,
   });
@@ -28,14 +30,12 @@ export const useArticleQuery = ({
   board,
   article,
 }: UseArticleQueryProperties) =>
-  useQuery<Article | undefined>(
-    ['article', board.uuid, article?.uuid],
-    () => article && getArticle({ board, article }),
-    {
-      enabled: !!board.uuid && !!article && !!article.uuid,
-      suspense: true,
-    },
-  );
+  useQuery<Article | undefined>({
+    queryKey: ['article', board.uuid, article?.uuid],
+    queryFn: () => article && getArticle({ board, article }),
+    enabled: !!board.uuid && !!article && !!article.uuid,
+    suspense: true,
+  });
 
 interface UseArticleAddMutationProperties {
   board: BoardLike;
@@ -50,11 +50,13 @@ export const useArticleAddMutation = ({
 }: UseArticleAddMutationProperties) => {
   const requestToken = localStorage.getItem(requestTokenKey);
   return useMutation<Article | undefined, Error, UseArticleAddMutateProperties>(
-    ['article', 'add', board.uuid],
-    async ({ title, content }: UseArticleAddMutateProperties) => {
-      if (requestToken) {
-        return addArticle({ board, title, content, requestToken });
-      }
+    {
+      mutationKey: ['article', 'add', board.uuid],
+      mutationFn: async ({ title, content }: UseArticleAddMutateProperties) => {
+        if (requestToken) {
+          return addArticle({ board, title, content, requestToken });
+        }
+      },
     },
   );
 };
@@ -73,12 +75,12 @@ export const useArticleEditMutation = ({
   article,
 }: UseArticleEditMutationProperties) => {
   const requestToken = localStorage.getItem(requestTokenKey);
-  return useMutation<Article | undefined, Error, UseArticleMutateProperties>(
-    ['article', 'edit', board.uuid, article?.uuid],
-    async ({ title, content }: UseArticleMutateProperties) => {
+  return useMutation<Article | undefined, Error, UseArticleMutateProperties>({
+    mutationKey: ['article', 'edit', board.uuid, article?.uuid],
+    mutationFn: async ({ title, content }: UseArticleMutateProperties) => {
       if (requestToken && article) {
         return editArticle({ board, article, title, content, requestToken });
       }
     },
-  );
+  });
 };
