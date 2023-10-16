@@ -1,5 +1,6 @@
 import fastifyCors from '@fastify/cors';
 import fastify, { FastifyInstance } from 'fastify';
+import { indexRoute } from './routes';
 import { apiRoute } from './routes/api';
 import { fastifyConfiguration } from './utilities/configuration';
 import { fastifyDataSource } from './utilities/database';
@@ -13,6 +14,8 @@ Promise.resolve().then(async () => {
 
   await server.register(fastifyDataSource);
   await server.dataSource.initialize();
+
+  await server.register(indexRoute, { prefix: '/' });
 
   await server.register(apiRoute, { prefix: '/api' });
 
