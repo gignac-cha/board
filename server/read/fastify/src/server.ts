@@ -20,5 +20,5 @@ Promise.resolve().then(async () => {
     await server.dataSource.destroy();
   });
 
-  await server.listen({ port: 3000 });
+  await server.listen({ ...server.configuration.fastify });
 });

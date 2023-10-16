@@ -36,7 +36,7 @@ class ArticleService(
         val articles = articleRepository.findAllByTitleHashStartingWith(shortestTitleHash)
         if (articles.isNotEmpty()) {
             val sortedArticles = articles.sortedByDescending { it.titleHash.length }
-            return titleHash.slice(0 until sortedArticles.first.titleHash.length + 1)
+            return titleHash.slice(0 until sortedArticles.elementAt(0).titleHash.length + 1)
         }
         return shortestTitleHash
     }

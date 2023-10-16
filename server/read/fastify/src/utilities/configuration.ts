@@ -1,4 +1,8 @@
-import { FastifyInstance, FastifyPluginOptions } from 'fastify';
+import {
+  FastifyInstance,
+  FastifyListenOptions,
+  FastifyPluginOptions,
+} from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions.js';
 
@@ -7,6 +11,7 @@ interface JWTConfiguration {
 }
 
 interface Configuration {
+  fastify: FastifyListenOptions;
   postgres: PostgresConnectionOptions;
   jwt: JWTConfiguration;
 }
@@ -19,6 +24,11 @@ declare module 'fastify' {
 
 const getConfiguration = (): Configuration => {
   return {
+    fastify: {
+      host: process.env.FASTIFY_HOST,
+      port: parseInt(process.env.FASTIFY_PORT ?? '0'),
+      backlog: parseInt(process.env.FASTIFY_BACKLOG ?? '0'),
+    },
     postgres: {
       type: 'postgres',
       host: process.env.POSTGRES_HOST,

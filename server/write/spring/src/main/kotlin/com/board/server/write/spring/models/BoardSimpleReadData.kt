@@ -7,4 +7,5 @@ data class BoardSimpleReadData(private val board: BoardEntity) {
     val uuid: UUID = board.uuid
     val uniqueId: String = board.uniqueId
     val name: String = board.name
+    val description: String = board.description
 }

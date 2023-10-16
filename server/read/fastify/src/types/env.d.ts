@@ -2,6 +2,12 @@ declare interface CommonEnv {
   NODE_ENV: 'production' | 'development' | 'local' | 'test';
 }
 
+declare interface FastifyEnv {
+  FASTIFY_HOST?: string;
+  FASTIFY_PORT?: string;
+  FASTIFY_BACKLOG?: string;
+}
+
 declare interface PostgresEnv {
   POSTGRES_HOST?: string;
   POSTGRES_PORT?: string;
@@ -15,5 +21,5 @@ declare interface JWTEnv {
 }
 
 declare module NodeJS {
-  type ProcessEnv = CommonEnv & PostgresEnv & JWTEnv;
+  type ProcessEnv = CommonEnv & FastifyEnv & PostgresEnv & JWTEnv;
 }
