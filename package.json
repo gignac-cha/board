@@ -7,13 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "private": true,
-  "workspaces": [
-    "workspaces/**"
-  ],
-  "devDependencies": {
-    "eslint": "^8.25.0",
-    "prettier": "^2.7.1"
-  }
+  "license": "ISC"
 }
